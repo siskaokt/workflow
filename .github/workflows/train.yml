@@ -21,9 +21,10 @@ jobs:
       - name: Install dependencies
         run: |
           cd MLProject
+          pip install --upgrade pip
           pip install -r requirements.txt || pip install pandas scikit-learn mlflow
 
-      - name: Run MLflow project
+      - name: Run MLflow Project
         run: |
           cd MLProject
-          mlflow run . --no-conda
+          mlflow run . --env-manager=local
