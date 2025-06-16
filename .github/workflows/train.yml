@@ -19,12 +19,18 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
+        working-directory: MLProject
         run: |
-          cd MLProject
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt || pip install pandas scikit-learn mlflow
 
       - name: Run MLflow Project
+        working-directory: MLProject
         run: |
-          cd MLProject
           mlflow run . --env-manager=local
+
+      - name: Upload trained model
+        uses: actions/upload-artifact@v3
+        with:
+          name: trained-model
+          path: MLProject/mlruns
