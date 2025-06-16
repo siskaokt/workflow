@@ -20,9 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r MLProject/requirements.txt || pip install -r requirements.txt
+          cd MLProject
+          pip install -r requirements.txt || pip install pandas scikit-learn mlflow
 
-      - name: Run training script
+      - name: Run MLflow project
         run: |
-          python MLProject/modelling.py --data_path MLProject/banknote_preprocessing.csv
+          cd MLProject
+          mlflow run . --no-conda
